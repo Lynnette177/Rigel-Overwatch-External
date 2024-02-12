@@ -20,8 +20,8 @@ const std::string compilation_time = (std::string)skCrypt(__TIME__);
 using namespace KeyAuth;
 
 std::string name = "Rigel"; // application name. right above the blurred text aka the secret on the licenses tab among other tabs
-std::string ownerid = "ss3JcGuVnA"; // ownerid, found in account settings. click your profile picture on top right of dashboard and then account settings.
-std::string secret = "f8ea20f06bac7ff17c73df0dec9d5bd5ab1cbadcddd8ace7a03f213e0643318d"; // app secret, the blurred text on licenses tab and other tabs
+std::string ownerid = ""; // ownerid, found in account settings. click your profile picture on top right of dashboard and then account settings.
+std::string secret = ""; // app secret, the blurred text on licenses tab and other tabs
 std::string version = "10.0"; // leave alone unless you've changed version on website
 std::string url = skCrypt("https://keyauth.win/api/1.2/").decrypt(); // change if you're self-hosting
 void MainThread() {
@@ -100,7 +100,7 @@ int main()
 	//std::cout << skCrypt("\n Number of users: ") << KeyAuthApp.data.numUsers;
 	//std::cout << skCrypt("\n Number of online users: ") << KeyAuthApp.data.numOnlineUsers;
 	//std::cout << skCrypt("\n Number of keys: ") << KeyAuthApp.data.numKeys;
-	//std::cout << skCrypt("\n µ±Ç°°æ±¾: ") << KeyAuthApp.data.version;
+	//std::cout << skCrypt("\n å½“å‰ç‰ˆæœ¬: ") << KeyAuthApp.data.version;
 	std::cout << skCrypt("\n Loader Ready. ") << KeyAuthApp.data.version;
 	//std::cout << skCrypt("\n Customer panel link: ") << KeyAuthApp.data.customerPanelLink;
 	//std::cout << skCrypt("\n Checking session validation status (remove this if causing your loader to be slow)");
@@ -166,13 +166,13 @@ int main()
 
 	}
 
-	//std::cout << skCrypt("\nÓÃ»§Êý¾Ý:");
+	//std::cout << skCrypt("\nç”¨æˆ·æ•°æ®:");
 	//std::cout << skCrypt("\n Username: ") << KeyAuthApp.data.username;
-	//std::cout << skCrypt("\n IPµØÖ·: ") << KeyAuthApp.data.ip;
+	//std::cout << skCrypt("\n IPåœ°å€: ") << KeyAuthApp.data.ip;
 	std::cout << skCrypt("\n\n HWID: ") << KeyAuthApp.data.hwid;
 	std::cout << skCrypt("\n Activated: ") << tm_to_readable_time(timet_to_tm(string_to_timet(KeyAuthApp.data.createdate)));
-	//std::cout << skCrypt("\n ÉÏÒ»´ÎµÇÂ¼: ") << tm_to_readable_time(timet_to_tm(string_to_timet(KeyAuthApp.data.lastlogin)));
-	//std::cout << skCrypt("\n ¿¨ÃÜÐÅÏ¢:\n ");
+	//std::cout << skCrypt("\n ä¸Šä¸€æ¬¡ç™»å½•: ") << tm_to_readable_time(timet_to_tm(string_to_timet(KeyAuthApp.data.lastlogin)));
+	//std::cout << skCrypt("\n å¡å¯†ä¿¡æ¯:\n ");
 
 	for (int i = 0; i < KeyAuthApp.data.subscriptions.size(); i++) { // Prompto#7895 was here
 		auto sub = KeyAuthApp.data.subscriptions.at(i);
