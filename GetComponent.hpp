@@ -732,48 +732,42 @@ namespace OW {
 
 		return NULL;
 	}
-	inline uint64_t DecryptOutline(uint64_t a1)
+
+	uint64_t DecryptOutline(uint64_t a1)
 	{
-		unsigned __int64 v2; // rdi
-		unsigned __int64 v3; // r8
-		unsigned __int64 v4; // rax
-		__int64 v5; // rbx
-		unsigned __int64 v6; // rcx
-		unsigned __int64 v7; // rcx
-		__m128i v8; // xmm1
-		__m128i v9; // xmm2
-		__m128i v10; // xmm0
-		__m128i v11; // xmm1
+		uint64_t key = 0x564B646A51CC2FFF;
+		uint64_t first_return_address = SDK->dwGameBase + 0x795DB2;
+		uint64_t second_return_address = first_return_address + 0x8;
+		uint64_t v4 = 0;
 
-		v2 = SDK->dwGameBase + offset::OutlineFN;
-		v3 = v2 + 0x8;
-		v4 = 0;
-		uint64_t* qword_37BBDC0 = (uint64_t*)(SDK->dwGameBase + offset::OutlineRead);
+		uint64_t v5 = SDK->RPM<uint64_t>(SDK->dwGameBase + 0x3826090 + uint64_t(8) * (((uint8_t)a1 + 0x1) & 0x7F) + (((a1 - key) >> 7) & 7)) ^ first_return_address ^ (a1 - key);
+		uint64_t v6 = (second_return_address - first_return_address + 7) >> 3;
 
-		v5 = SDK->RPM<uint64_t>((uint64_t)(char*)&qword_37BBDC0[((_BYTE)a1 - 49) & 0x7F]
-			+ (((unsigned __int64)(a1 - offset::OutLine_Key) >> 7) & 7)) ^ v2 ^ (a1 - offset::OutLine_Key);
-		v6 = (v3 - v2 + 7) >> 3;
-		if (v2 > v3)
+		v6 = (second_return_address - first_return_address + 7) >> 3;
+		if (first_return_address > second_return_address)
 			v6 = 0;
-		if (v6 && v6 >= 4)
+		if (v6 >= 4)
 		{
-			v7 = v6 & 0xFFFFFFFFFFFFFFFCui64;
-			ZeroMemory(&v8, sizeof(v8));
-			ZeroMemory(&v9, sizeof(v9));
-			do
+			uint64_t v7 = v6 & 0xFFFFFFFFFFFFFFFC;
+			__m128i v8 = _mm_setzero_si128();
+			__m128i v9 = _mm_setzero_si128();
+			while (v4 < v7)
 			{
-				v4 += 4;
-				v8 = _mm_xor_si128(v8, _mm_loadu_si128((const __m128i*)v2));
-				v10 = _mm_loadu_si128((const __m128i*)(v2 + 0x10));
-				v2 += 0x20;
-				v9 = _mm_xor_si128(v9, v10);
-			} while (v4 < v7);
-			v11 = _mm_xor_si128(v8, v9);
+				__m128i data1 = _mm_loadu_si128(reinterpret_cast<const __m128i*>(first_return_address));
+				__m128i data2 = _mm_loadu_si128(reinterpret_cast<const __m128i*>(first_return_address + 16));
+
+				v8 = _mm_xor_si128(v8, data1);
+				v9 = _mm_xor_si128(v9, data2);
+
+				first_return_address += 32;
+				v4 += 4i64;
+			}
+			__m128i v11 = _mm_xor_si128(v8, v9);
 			v5 ^= _mm_xor_si128(v11, _mm_srli_si128(v11, 8)).m128i_u64[0];
 		}
-		for (; v2 < v3; v2 += 0x8)
-			v5 ^= SDK->RPM<uint64_t>(v2);
-		return v5 ^ ~v3 ^ 0x835434F5E086D1CFi64;
+		for (; first_return_address < second_return_address; first_return_address += 8)
+			v5 ^= SDK->RPM<uint64_t>(first_return_address);
+		return v5 ^ ~second_return_address ^ 0xA9B49B95AE33D001;
 	}
 
 	inline void SetBorderLine(uint32_t BorderType, DWORD_PTR base)
