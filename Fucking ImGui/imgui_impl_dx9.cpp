@@ -32,7 +32,7 @@
 
 #include "imgui.h"
 #include "imgui_impl_dx9.h"
-#pragma comment£¨lib,"d3d9.lib"£©
+#pragma comment(lib,"d3d9.lib")
 // DirectX
 #include <d3d9.h>
 
