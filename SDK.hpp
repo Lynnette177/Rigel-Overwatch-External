@@ -62,51 +62,21 @@ namespace OW {
 			return spoof_call((PVOID)(this->dwGameBase + 0x1D21D0C), reinterpret_cast<uint64_t(__fastcall*)(uint64_t*, uint64_t*)>(this->dwGameBase + 0xB2DE0), a2, a1); //48 8b 89 ? ? ? ? e9 ? ? ? ? 83 ff + D, 48 89 74 24 ? 57 48 8b f2 48 8b f9
 		}
 		bool GetGlobalKey() {
-			static auto key_sig = (BYTE*)"\x00\x00\x00\x00\x21\x00\x00\x00\x00\x00\x00\x00\x24\x00\x00\x00\x01\x00\x00\x00\x29\x00\x00\x00";
-			static auto key_mask = "xxxxxxxxxxxxxxxxxxxxxxxx";
+			static auto key_sig = (BYTE*)"\xFF\xFF\xFF\xFF\xFF\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x00\x00";
+			static auto key_mask = "xxxxxxxx????????????????????x???";
 			while (true) {
 				uint64_t Key = FindPatternExReg(key_sig, key_mask, 0x100000);
-				//printf("%llx\n", Key);
-				if (Key && Key < 0xf000000000000000 && RPM<uint64_t>(Key - 0x60) > 0x100000000000000 && RPM<uint64_t>(Key + 0xa8) > 0x100000000000000) {
-					GlobalKey1 = RPM<uint64_t>(Key - 0x60);
-					GlobalKey2 = RPM<uint64_t>(Key + 0xa8);
-					printf("\nWelcome to Rigel\n");
-					//printf("%llx\n", GlobalKey1);
-					//printf("%llx\n\n\n", GlobalKey2);
-					/*for (int i = 0; i <= 0x40; i++) {
-						GlobalKey1 = RPM<uint64_t>(Key + i);
-						printf("%x,%llx\n",i, GlobalKey1);
-					}*/
+				printf("%llx\n", Key);
+				if (Key && Key < 0xf000000000000000 && RPM<uint64_t>(Key - 0xF0) > 0x100000000000000 && RPM<uint64_t>(Key - 0x78) > 0x100000000000000) {
+					GlobalKey1 = RPM<uint64_t>(Key - 0xF0);
+					GlobalKey2 = RPM<uint64_t>(Key - 0x78);
+					printf("GlobalKey1: 0x%llx\n", GlobalKey1);
+					printf("GlobalKey2: 0x%llx\n", GlobalKey2);
 					return true;
 				}
 				Sleep(1000);
 			}
 		}
-		/*inline bool GetGlobalKey() {
-			static bool is_found = false;
-			static auto key_sig = (BYTE*)"\x00\x00\x00\x00\x80\x00\x00\x40\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x3f";
-			static auto key_mask = "x???xx?xx?????xxxxxx";
-			//if (is_found == false) {
-				//static uint64_t Key = FindPatternExReg(key_sig, key_mask, 0x100000) - 0x70;
-				//if (RPM<uint64_t>(dwGameBase + 0x1DD75CF - 0x40) && RPM<uint64_t>(dwGameBase + 0x1DD75CF - 0x48))
-				//{
-			char buffer[256];
-			GetPrivateProfileString("KEY", "key1", "0", buffer, 256, "C:\\ProgramData\\KEY.ini");
-			std::string k1 = buffer;
-			std::stringstream strm(k1);
-			strm >> std::hex >> GlobalKey1;
-			//std::cout << std::hex << GlobalKey1;
-
-			char buffer2[256];
-			GetPrivateProfileString("KEY", "key2", "0", buffer2, 256, "C:\\ProgramData\\KEY.ini");
-			std::string k2 = buffer2;
-			std::stringstream strm2(k2);
-			strm2 >> std::hex >> GlobalKey2;
-			//std::cout << std::hex << GlobalKey2;
-			return true;
-			//}
-		//}
-		}*/
 
 		template <typename WPMType>
 		__forceinline bool WPM(DWORD_PTR Address, WPMType Buffer)
