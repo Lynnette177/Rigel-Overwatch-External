@@ -373,17 +373,13 @@ namespace OW {
 	uintptr_t GetHeapManager(uint8_t index) {
 		uintptr_t v0 = SDK->RPM<uintptr_t>(SDK->dwGameBase + offset::HeapManager);
 		if (v0 != 0) {
-			uintptr_t v1 = SDK->RPM<uintptr_t>(v0 + offset::HeapManager_Pointer) ^ (offset::HeapManager_Key - SDK->RPM<uintptr_t>(SDK->dwGameBase + offset::HeapManager_Var));
-			//uintptr_t v1 = SDK->RPM<uintptr_t>(v0 + offset::HeapManager_Pointer) ^ (SDK->RPM<uintptr_t>(SDK->dwGameBase + offset::HeapManager_Var), 12)^ offset::HeapManager_Key;
-			//uintptr_t v1 = SDK->RPM<uintptr_t>(SDK->dwGameBase + offset::HeapManager_Var) ^ SDK->RPM<uintptr_t>(v0 + offset::HeapManager_Pointer) ^ offset::HeapManager_Key;
-
-			//uintptr_t v1 = SDK->RPM<uintptr_t>(v0 + offset::HeapManager_Pointer) ^ (_rotl64(SDK->RPM<uintptr_t>(SDK->dwGameBase + offset::HeapManager_Var), 0xA) - offset::HeapManager_Key);
+			auto v1 = SDK->RPM<uintptr_t>(v0 + offset::HeapManager_Pointer) ^ (offset::HeapManager_Key - SDK->RPM<uintptr_t>(SDK->dwGameBase + offset::HeapManager_Var));
 			if (v1 != 0) {
-				uintptr_t v2 = SDK->RPM<uintptr_t>(v1 + 0x8 * index);
+				uintptr_t v2 = SDK->RPM<uintptr_t>((v1 + 0x8 * index));
 				return v2;
 			}
 		}
-		return NULL;
+	return NULL;
 	}
 
 	inline uintptr_t GetSenstivePTR() {
