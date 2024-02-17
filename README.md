@@ -1,4 +1,3 @@
-# Rigel-Overwatch-External
 2 branches: English/Chinese version  
 
 ## Buy me a cup of coffee/支持我
