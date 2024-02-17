@@ -3,12 +3,12 @@
 namespace OW {
 	namespace Config {
 
-		bool loginornot = 1;
+		bool loginornot = 0;
 		bool LoggedIn = false;
 		int got = 0;
 
 		bool namespoofer = false;
-		char fakename[] = u8"ÁÔ»§×ùÓÃ»§#1234";
+		char fakename[] = u8"çŒŽæˆ·åº§ç”¨æˆ·#1234";
 
 		uint8_t trytoplus = 0;
 
@@ -50,7 +50,7 @@ namespace OW {
 
 		float missbox = 0.6f;
 
-		float predit_level = 110.f; // ¼ÒÀü 160.f
+		float predit_level = 110.f; // å®¶å‚ˆ 160.f
 
 		int deleteraw = 0;
 		int makesuredelete = 0;
@@ -107,7 +107,7 @@ namespace OW {
 		bool AutoShoot = false;
 		int Shoottime = 500;
 
-		//hitbox¸½½üÑÓ³Ù¿ªÇ¹
+		//hitboxé™„è¿‘å»¶è¿Ÿå¼€æžª
 		bool hitboxdelayshoot = false;
 		int hiboxdelaytime = 0;
 
@@ -214,7 +214,7 @@ namespace OW {
 		int cps2 = 1;
 		int cps3 = 0;
 
-		//ÏÖÔÚÓ¢ÐÛ
+		//çŽ°åœ¨è‹±é›„
 		std::string nowhero = "";
 	}
 }
