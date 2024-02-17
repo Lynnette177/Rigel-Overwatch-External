@@ -326,48 +326,48 @@ namespace OW {
 		return NULL;
 	}
 
-	inline unsigned __int64 __fastcall DecryptVis(unsigned __int64 a1)
-	{
-		unsigned __int64 v2; // rdi
-		unsigned __int64 v3; // r8
-		unsigned __int64 v4; // rax
-		__int64 v5; // rbx
+	inline unsigned __int64 __fastcall DecryptVis(__int64 a1) {
+		__int64 v1; // rsi
+		unsigned __int64 v2; // rbx
+		unsigned __int64 v3; // r9
+		__int64 v4; // rsi
+		unsigned __int64 v5; // rdx
 		unsigned __int64 v6; // rcx
-		unsigned __int64 v7; // rcx
-		__m128i v8; // xmm1
-		__m128i v9; // xmm2
-		__m128i v10; // xmm0
-		__m128i v11; // xmm1
-
-		v2 = (unsigned __int64)(SDK->dwGameBase + offset::VisFN);
-		v3 = (unsigned __int64)(v2 + 8);
-		v4 = 0i64;
-		v5 = SDK->RPM<uint64_t>(SDK->dwGameBase + offset::VisRead
-			+ 8 * (((unsigned __int8)a1 - 20) & 0x7F)
-			+ (((unsigned __int64)(a1 + offset::Vis_Key) >> 7) & 7)) ^ v2 ^ (a1 + offset::Vis_Key);
-		v6 = ((unsigned __int64)v3 - v2 + 7) >> 3;
-		if (v2 > (unsigned __int64)v3)
-			v6 = 0i64;
-		if (v6 >= 4)
-		{
-			v7 = v6 & 0xFFFFFFFFFFFFFFFCui64;
-			v8 = {};
-			v9 = {};
-			do
-			{
-				v4 += 4i64;
-				v8 = _mm_xor_si128(v8, _mm_loadu_si128((const __m128i*)v2));
-				v10 = _mm_loadu_si128((const __m128i*)(v2 + 16));
-				v2 += 32i64;
-				v9 = _mm_xor_si128(v9, v10);
-			} while (v4 < v7);
-			v11 = _mm_xor_si128(v8, v9);
-			v5 ^= _mm_xor_si128(v11, _mm_srli_si128(v11, 8)).m128i_u64[0];
+		__m128i v7; // xmm1
+		__m128i v8; // xmm2
+		__m128i v9; // xmm0
+		__m128i v10; // xmm1
+		v1 = a1;
+		v2 = SDK->dwGameBase + offset::VisFN;
+		v3 = v2 + 0x8;
+		v4 = SDK->RPM<uint64_t>(SDK->dwGameBase + 0x3826090
+			+ 8 * (((uint8_t)a1 + 0x39) & 0x7F)
+			+ (((uint64_t)(a1 - offset::Vis_Key) >> 7) & 7)) ^ v2 ^ (a1 - offset::Vis_Key);
+		v5 = (v3 - v2 + 7) >> 3;
+		v6 = 0i64;
+		if (v2 > v3)
+			v5 = 0i64;
+		if (v5) {
+			if (v5 >= 4) {
+				ZeroMemory(&v7, sizeof(v7));
+				ZeroMemory(&v8, sizeof(v8));
+				do {
+					v6 += 4i64;
+					v7 = _mm_xor_si128(v7, _mm_loadu_si128((const __m128i*)v2));
+					v9 = _mm_loadu_si128((const __m128i*)(v2 + 16));
+					v2 += 32i64;
+					v8 = _mm_xor_si128(v8, v9);
+				} while (v6 < (v5 & 0xFFFFFFFFFFFFFFFCui64));
+				v10 = _mm_xor_si128(v7, v8);
+				auto addr = _mm_xor_si128(v10, _mm_srli_si128(v10, 8));
+				v4 ^= *(__int64*)&addr;
+			}
 		}
-		for (; v2 < (unsigned __int64)v3; v2 += 8i64)
-			v5 ^= SDK->RPM<uint64_t>(v2);
-
-		return v5 ^ ~(v3) ^ offset::Vis_Key;
+		for (; v6 < v5; ++v6) {
+			v4 ^= SDK->RPM<uintptr_t>(v2);
+			v2 += 8i64;
+		}
+		return v4 ^ ~v3 ^ 0x0A86DE5A1C2888E39;
 	}
 
 	uintptr_t GetHeapManager(uint8_t index) {
