@@ -312,14 +312,12 @@ namespace OW {
 				unsigned __int64 v9 = SDK->RPM<uintptr_t>((SDK->RPM<uintptr_t>((v1 + 0x80)) + 8 * (SDK->RPM<uint8_t>(((uint32_t)v5 + v1 + 0x130)) + ((0x101010101010101 * (((v8 & 0x3333333333333333) + ((v8 >> 2) & 0x3333333333333333) + (((v8 & 0x3333333333333333) + ((v8 >> 2) & 0x3333333333333333)) >> 4)) & 0xF0F0F0F0F0F0F0F)) >> 0x38))));
 				unsigned __int64 Key1 = SDK->GlobalKey1;
 				unsigned __int64 Key2 = SDK->GlobalKey2;
-				auto dummy = SDK->RPM<_QWORD>(SDK->dwGameBase + 0x38280A0 + (Key1 >> 0x34));
-				auto dummy2 = SDK->RPM<_QWORD>(SDK->dwGameBase + 0x38280A0 + (Key1 & 0xFFF));
-				unsigned __int64 v12 = (unsigned int)v9 | v9 & 0xFFFFFFFF00000000ui64 ^ ((unsigned __int64)((unsigned int)v9
-					- (unsigned int)dummy2) << 32);
-				unsigned __int64 v13 = (unsigned int)Key2 ^ (unsigned int)v12 | (Key2 ^ ((unsigned int)v12 | v12 & 0xFFFFFFFF00000000ui64 ^ ((unsigned __int64)(unsigned int)(-713065622 - v12) << 32))) & 0xFFFFFFFF00000000ui64 ^ ((unsigned __int64)(2 * ((unsigned int)Key2 ^ (unsigned int)v12) - __ROL4__(dummy, 9)) << 32);
-				unsigned __int64 	result = -(int)v7;
-				unsigned __int64 v15 = result & ((unsigned int)v13 | v13 & 0xFFFFFFFF00000000ui64 ^ ((unsigned __int64)(unsigned int)(v13 - HIDWORD(dummy2)) << 32));
-				return v15;
+				auto dummy = SDK->RPM<_QWORD>(SDK->dwGameBase + 0x3825080 + (Key1 >> 0x34));
+				auto dummy2 = SDK->RPM<_QWORD>(SDK->dwGameBase + 0x3825080 + (Key1 & 0xFFF));
+				unsigned __int64 v10 = (unsigned int)v9 | v9 & 0xFFFFFFFF00000000ui64 ^ ((unsigned __int64)(2 * (unsigned int)v9 - __ROL4__((dummy), 9)) << 0x20) & 0xFFFFFFFF00000000ui64;
+				unsigned __int64 v11 = (unsigned int)Key2 ^ ((unsigned int)v9 | (unsigned int)v10) | (Key2 ^ ((unsigned int)v9 | v10 ^ ((unsigned __int64)(2 * (unsigned int)v9 - __ROL4__(HIDWORD(dummy2), 9)) << 0x20))) & 0xFFFFFFFF00000000ui64 ^ ((unsigned __int64)(2 * ((unsigned int)Key2 ^ ((unsigned int)v9 | (unsigned int)v10)) + 0x4DD43052) << 0x20);
+				unsigned __int64 v12 = -(int)v7 & ((unsigned int)v11 | v11 & 0xFFFFFFFF00000000ui64 ^ ((unsigned __int64)(unsigned int)(2 * __ROR4__(HIDWORD(dummy), 3) - v11) << 0x20));
+				return v12;
 			}
 		}
 		__except (EXCEPTION_EXECUTE_HANDLER) {}
