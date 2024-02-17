@@ -699,20 +699,14 @@ namespace OW {
 
 	inline uint64_t GetOutlineStruct(uint64_t a1)
 	{
-		__try
-		{
-			uint64_t result = NULL;
-			int v1 = SDK->RPM<uint32_t>(a1 + 0x68);
-			if (v1 <= 0)
-				result = 0;
-			else
-				result = (uint64_t)(0x20 * v1 + SDK->RPM<uint64_t>(a1 + 0x60) - 0x20);
 
-			return result;
-		}
-		__except (EXCEPTION_EXECUTE_HANDLER) {}
-
-		return NULL;
+		__int64 v2; // rcx
+		int v4; // er9
+		v2 = SDK->RPM<int>(a1 + 0x68);
+		if ((_DWORD)v2)
+			return  (uint64_t)(0x20 * v2 + SDK->RPM<_QWORD>(a1 + 0x60) - 0x20i64);
+		else
+			return 0i64;
 	}
 
 	uint64_t GetThickNessStruct(uint64_t a1)
