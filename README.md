@@ -1,3 +1,20 @@
+# 本人在闲鱼/淘宝/拼多多等任何平台 没有任何账号
+# 本人不售卖任何相关产品/不提供任何服务
+# 请勿被闲鱼上的卖家诈骗 有大量冒充者
+# 请勿购买付费的产品 不要被骗
+# 源码仅供学习用途 不提供任何问题回答/更新/修改
+# 目前已知闲鱼冒充者/二次倒卖者：
+天才顿悟社区![IMG_0920](https://github.com/Lynnette177/Rigel-Overwatch-External/assets/68948483/bac7369c-4b65-4b40-881e-4df384985adb)  
+淘宝 粿粿子科技![image](https://github.com/Lynnette177/Rigel-Overwatch-External/assets/68948483/a10e6aa9-8cae-487e-8c9d-6ec78182733a)  
+QQ 老表 343901643  
+18606961081  
+（信息由热心网友提供）
+
+# IM not selling any source/code
+# I dont have Discord
+# DO NOT BE SCAMMED
+
+
 # Rigel-Overwatch-External
 2 branches: English/Chinese version  
 Rigel Overwatch Cheat External version. Aimbot ESP etc  
